@@ -1,6 +1,6 @@
 {
   "name": "loop-qwerty",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Qwerty keyboard bindings for loop-grid.",
   "main": "index.js",
   "scripts": {
