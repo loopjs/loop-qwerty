@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mmckegg/loop-qwerty",
   "dependencies": {
+    "array-grid": "^1.4.0",
     "frp-keyboard": "^1.4.1",
     "keycode": "^1.0.0",
     "loop-grid": "^3.1.0",
