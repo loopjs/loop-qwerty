@@ -3,7 +3,6 @@ var Holder = require('loop-grid-holder')
 var Repeater = require('loop-grid-repeater')
 var Suppressor = require('loop-grid-suppressor')
 
-var Keyboard = require('frp-keyboard')
 var computed = require('observ/computed')
 var convertKeyCode = require('keycode')
 
@@ -18,9 +17,15 @@ var watchStruct = require('./lib/watch-struct.js')
 var mapWatchDiff = require('./lib/map-watch-diff-stack.js')
 var watch = require('observ/watch')
 
+var InputStack = require('./input-stack.js')
+
 var DittyGridStream = require('ditty-grid-stream')
 
 var repeatStates = [2, 1, 2/3, 1/2, 1/3, 1/4, 1/6, 1/8]
+
+var versionKey = 1
+var cacheKey = "__QWERTY_KEY_INPUT_CACHE@" + versionKey
+var getInput = document[cacheKey] = document[cacheKey] || InputStack()
 
 module.exports = function(opts){
 
@@ -32,12 +37,15 @@ module.exports = function(opts){
   opts.shape = gridMapping.shape
 
   // bind to qwerty keyboard
-  var keysDown = Observ()
-  keysDown.unwatch = watch(Keyboard().keysDown, keysDown.set)
+  var keysDown = getInput()
 
   // extend loop-grid instance
   var self = LoopGrid(opts)
   self.repeatLength = Observ(2)
+
+  self.grabInput = function(){
+    keysDown.grab()
+  }
 
   // loop transforms
   var transforms = {
@@ -141,7 +149,7 @@ module.exports = function(opts){
 
   // cleanup / disconnect from keyboard on destroy
   self._releases.push(
-    keysDown.unwatch,
+    keysDown.close,
     output.destroy
   )
 
