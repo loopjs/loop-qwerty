@@ -68,7 +68,7 @@ module.exports = function(opts){
     store: 'enter',
     suppress: 'backspace',
     undo: '-',
-    redo: '+',
+    redo: '=',
     hold: 'shift',
     halve: '[',
     double: ']'
