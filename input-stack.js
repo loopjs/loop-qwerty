@@ -50,8 +50,8 @@ function InputStack(){
 
   return function(){
     var input = Observ([])
-    input.grab = grab
-    input.close = close
+    input.grab = grab.bind(input)
+    input.close = close.bind(input)
     input.grab()
     return input
   }
