@@ -58,14 +58,20 @@ function InputStack(){
 
 }
 
-var ignore = ['INPUT', 'TEXTAREA', 'SELECT']
+
+function shouldIgnore(el){
+  return (el.nodeName === 'INPUT' && el.type !== 'range') || 
+          el.nodeName === 'TEXTAREA' || 
+          el.nodeName === 'SELECT'
+}
+
 function KeysDown(){
 
   var obs = Observ([])
 
   function handleEvent(e){
     var el = document.activeElement
-    if (!el || (!~ignore.indexOf(el.nodeName) && el.contentEditable !== 'true')){
+    if (!el || (!shouldIgnore(el) && el.contentEditable !== 'true')){
       var index = obs().indexOf(e.keyCode)
       if (e.type === 'keydown'){
         if (!~index){
