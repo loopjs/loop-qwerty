@@ -66,7 +66,7 @@ module.exports = function(opts){
 
   var buttons = ObservKeys(keysDown, {
     store: 'enter',
-    suppress: 'backspace',
+    flatten: 'backspace',
     undo: '-',
     redo: '=',
     hold: 'shift',
@@ -78,19 +78,19 @@ module.exports = function(opts){
 
     store: function(value){
       if (value){
-        if (!self.transforms.getLength()){
-          self.store()
-        } else {
-          self.flatten()
-        }
+        self.store()
       }
     },
   
-    suppress: function(value){
+    flatten: function(value){
       if (value){
-        transforms.suppressor.start()
-      } else {
-        transforms.suppressor.stop()
+        if (self.transforms.getLength()){
+          self.flatten()
+        } else {
+          transforms.suppressor.start()
+          self.flatten()
+          transforms.suppressor.stop()
+        }
       }
     },
   

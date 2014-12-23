@@ -16,7 +16,7 @@ Z X C V B N M , . /
 - **store**: enter
 - **hold**: shift
 - **repeat**: 1-8 (none, 1, 2/3, 1/2, 1/3, 1/4, 1/6, 1/8)
-- **suppress**: backspace (hold, or press **store** while holding to lock in)
+- **clear/flatten**: backspace
 - **undo**: -
 - **redo**: =
 - **halve length**: [
