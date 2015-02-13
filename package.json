@@ -20,11 +20,12 @@
     "array-grid": "^1.4.0",
     "ditty-grid-stream": "^1.1.1",
     "keycode": "^1.0.0",
-    "loop-grid": "^3.1.0",
+    "loop-grid": "^4.0.0",
     "loop-grid-holder": "^1.0.1",
     "loop-grid-repeater": "^1.0.0",
     "loop-grid-suppressor": "^1.1.0",
     "observ": "^0.2.0",
-    "observ-struct": "^6.0.0"
+    "observ-struct": "^6.0.0",
+    "observ-varhash": "^1.0.4"
   }
 }

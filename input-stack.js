@@ -60,9 +60,8 @@ function InputStack(){
 
 
 function shouldIgnore(el){
-  return (el.nodeName === 'INPUT' && el.type !== 'range') || 
-          el.nodeName === 'TEXTAREA' || 
-          el.nodeName === 'SELECT'
+  return (el.nodeName === 'INPUT' && el.type !== 'range' && el.type !== 'checkbox') || 
+          el.nodeName === 'TEXTAREA'
 }
 
 function KeysDown(){
