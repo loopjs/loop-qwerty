@@ -25,6 +25,7 @@
     "loop-grid-repeater": "^1.0.0",
     "loop-grid-suppressor": "^1.1.0",
     "observ": "^0.2.0",
+    "observ-grid": "^2.8.1",
     "observ-struct": "^6.0.0",
     "observ-varhash": "^1.0.4"
   }
