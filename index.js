@@ -91,11 +91,11 @@ function LoopQwerty(context){
   }
 
   var buttons = ObservKeys(keysDown, {
-    store: 'enter',
+    store: 'space',
     flatten: 'backspace',
     undo: '-',
     redo: '=',
-    hold: 'shift',
+    hold: 'enter',
     halve: '[',
     double: ']'
   })
