@@ -18,7 +18,7 @@ var computeIndexesWhereContains = require('observ-grid/indexes-where-contains')
 
 var watch = require('observ/watch')
 var watchStruct = require('./lib/watch-struct.js')
-var mapWatchDiff = require('./lib/map-watch-diff-stack.js')
+var setMappedValue = require('./lib/set-mapped-value.js')
 
 var DittyGridStream = require('ditty-grid-stream')
 var InputStack = require('./input-stack.js')
@@ -31,6 +31,7 @@ module.exports = LoopQwerty
 var versionKey = 2
 var cacheKey = "__QWERTY_KEY_INPUT_CACHE@" + versionKey
 var getInput = document[cacheKey] = document[cacheKey] || InputStack()
+var repeatLength = Observ(2)
 
 function LoopQwerty(context){
   
@@ -57,7 +58,6 @@ function LoopQwerty(context){
   obs.context = context
   obs.playback = loopGrid
   obs.looper = looper
-  obs.repeatLength = Observ(2)
 
   var flags = computeFlags(context.chunkLookup, obs.chunkPositions, loopGrid.shape)
 
@@ -76,6 +76,10 @@ function LoopQwerty(context){
     keysDown.grab()
   }
 
+  obs.activeInput = keysDown.active
+
+  //HACK: all inputs share repeatLength
+  obs.repeatLength = repeatLength
 
   var output = DittyGridStream(inputGrabber, loopGrid.grid, context.scheduler)
   output.on('data', loopGrid.triggerEvent)
@@ -95,7 +99,7 @@ function LoopQwerty(context){
     flatten: 'backspace',
     undo: '-',
     redo: '=',
-    hold: 'enter',
+    hold: 'shift',
     halve: '[',
     double: ']'
   })
@@ -163,10 +167,14 @@ function LoopQwerty(context){
 
   // repeater
   var releaseRepeatLight = null
-  mapWatchDiff(repeatStates, repeatButtons, obs.repeatLength.set)
+  setMappedValue(repeatStates, repeatButtons, obs.repeatLength)
   watch(obs.repeatLength, function(value){
+
+
     transforms.holder.setLength(value)
+
     if (value < 2){
+      console.log(value)
       transforms.repeater.start(grabInputExcludeNoRepeat, value)
     } else {
       transforms.repeater.stop()

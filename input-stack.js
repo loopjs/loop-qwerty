@@ -15,6 +15,7 @@ function InputStack(){
     if (!stack.length || index < stack.length - 1){
       
       release&&release()
+
       if (stack.length){
         stack[stack.length-1].set([])
       }
@@ -23,7 +24,7 @@ function InputStack(){
         stack.splice(index, 1)
       }
       stack.push(input)
-      release = watch(getKeysDown(), input.set)
+      release = activate(input)
     }
   }
 
@@ -35,21 +36,73 @@ function InputStack(){
       if (index === stack.length-1){
         release&&release()
         stack.pop()
-        release = stack.length ? 
-          watch(getKeysDown(), stack[stack.length-1].set) : 
-          null
+        release = activate(stack[stack.length-1])
       }
     }
 
     input.set([])
   }
 
+  function activate(input) {
+    if (input) {
+      var releaseInput = watch(getKeysDown(), input.set)
+      input.active.set(true)
+
+      return function() {
+        releaseInput()
+        input.active.set(false)
+      }
+    }
+  }
+
+  function next(){
+    if (stack.length > 1){
+      var input = stack.pop()
+      release&&release()
+      input.set([])
+      input.active.set(false)
+
+      stack.unshift(input)
+      release = activate(stack[stack.length-1])
+    }
+  }
+
+  function swap(){
+    if (stack.length > 1){
+      var input = stack.pop()
+      release&&release()
+      input.set([])
+      input.active.set(false)
+      stack.splice(-1, 0, input)
+      release = activate(stack[stack.length-1])
+    }
+  }
+
   function getKeysDown(){
     return keysDown = keysDown || KeysDown()
   }
 
+  function handleKey(e) {
+    var el = document.activeElement
+    if (stack.length) {
+      if (!el || (!shouldIgnore(el) && el.contentEditable !== 'true')){
+        if ((e.keyCode === 9 || e.keyCode === 13) && e.type === 'keydown') { // tab or enter
+          e.preventDefault()
+          next()
+        } else if (e.keyCode === 18) { // alt
+          e.preventDefault()
+          swap()
+        }
+      }
+    }
+  }
+
+  document.addEventListener('keydown', handleKey, false)
+  document.addEventListener('keyup', handleKey, false)
+
   return function(){
     var input = Observ([])
+    input.active = Observ()
     input.grab = grab.bind(input)
     input.close = close.bind(input)
     input.grab()
@@ -77,6 +130,7 @@ function KeysDown(){
           var val = obs().concat()
           val.push(e.keyCode)
           obs.set(val)
+          e.preventDefault()
         }
       } else if (e.type === 'keyup'){
         if (~index){
