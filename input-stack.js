@@ -124,11 +124,12 @@ function KeysDown(){
   function handleEvent(e){
     var el = document.activeElement
     if (!el || (!shouldIgnore(el) && el.contentEditable !== 'true')){
-      var index = obs().indexOf(e.keyCode)
+      var index = obs().indexOf(getKey(e))
       if (e.type === 'keydown'){
         if (!~index){
           var val = obs().concat()
-          val.push(e.keyCode)
+          val.push(getKey(e))
+          console.log(getKey(e))
           obs.set(val)
           e.preventDefault()
         }
@@ -151,4 +152,12 @@ function KeysDown(){
   }
 
   return obs
+}
+
+function getKey(event) {
+  if (event.keyIdentifier === 'Unidentified') {
+    return event.keyCode
+  } else {
+    return event.keyIdentifier
+  }
 }

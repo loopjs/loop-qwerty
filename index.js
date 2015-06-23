@@ -22,7 +22,9 @@ var setMappedValue = require('./lib/set-mapped-value.js')
 
 var DittyGridStream = require('ditty-grid-stream')
 var InputStack = require('./input-stack.js')
-var convertKeyCode = require('keycode')
+var getKeyIdentifier = require('./lib/get-key-identifier')
+
+var mapping = require('./mapping')
 
 var repeatStates = [2, 1, 2/3, 1/2, 1/3, 1/4, 1/6, 1/8]
 
@@ -37,8 +39,12 @@ function LoopQwerty(context){
   
   var loopGrid = LoopGrid(context)
   var looper = Looper(loopGrid)
+  var keyboardLayout = context.keyboardLayout && context.keyboardLayout()
+  var currentMapping = mapping[keyboardLayout] || mapping.default
 
-  var gridMapping = getGridMapping()
+  var gridMapping = getGridMapping(currentMapping.grid)
+  console.log(gridMapping.data)
+  
   loopGrid.shape.set(gridMapping.shape)
 
   var obs = ObservStruct({
@@ -94,15 +100,7 @@ function LoopQwerty(context){
     suppressor: Suppressor(looper.transform, gridMapping.shape, gridMapping.stride)
   }
 
-  var buttons = ObservKeys(keysDown, {
-    store: 'space',
-    flatten: 'backspace',
-    undo: '-',
-    redo: '=',
-    hold: 'shift',
-    halve: '[',
-    double: ']'
-  })
+  var buttons = ObservKeys(keysDown, currentMapping.actions)
 
   watchStruct(buttons, {
 
@@ -203,8 +201,8 @@ function KeyboardGrid(obs, mapping){
   return result
 }
 
-function getGridMapping(){
-  var result = "qwertyuiopasdfghjkl;zxcvbnm,./".split('').map(convertKeyCode)
+function getGridMapping(keys){
+  var result = keys.split('').map(getKeyIdentifier)
   return ArrayGrid(result, [3, 10])
 }
 

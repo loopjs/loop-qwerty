@@ -13,9 +13,23 @@ Qwerty keyboard bindings for [loop-grid](https://github.com/mmckegg/loop-grid).
 - **hold beat**: shift
 - **repeat**: 1-8 (none, 1, 2/3, 1/2, 1/3, 1/4, 1/6, 1/8)
 - **clear/flatten**: backspace
+- **next input**: tab / enter
+- **swap input**: alt (hold)
+
+## Qwerty (default)
+
 - **undo**: -
 - **redo**: =
 - **halve length**: [
 - **double length**: ]
-- **next input**: tab / enter
-- **swap input**: alt (hold)
+
+## Qwertz (german)
+
+- **undo**: ß
+- **redo**: ´
+- **halve length**: ü
+- **double length**: +
+
+## Keyboard Locali[sz]ation
+
+Please modify [mapping.js](mapping.js) and send a pull request if your keyboard is not supported!
