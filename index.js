@@ -169,12 +169,8 @@ function LoopQwerty(context){
   var releaseRepeatLight = null
   setMappedValue(repeatStates, repeatButtons, obs.repeatLength)
   watch(obs.repeatLength, function(value){
-
-
     transforms.holder.setLength(value)
-
     if (value < 2){
-      console.log(value)
       transforms.repeater.start(grabInputExcludeNoRepeat, value)
     } else {
       transforms.repeater.stop()
