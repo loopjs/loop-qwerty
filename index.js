@@ -43,7 +43,6 @@ function LoopQwerty(context){
   var currentMapping = mapping[keyboardLayout] || mapping.default
 
   var gridMapping = getGridMapping(currentMapping.grid)
-  console.log(gridMapping.data)
   
   loopGrid.shape.set(gridMapping.shape)
 
