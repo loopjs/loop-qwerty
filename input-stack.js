@@ -129,7 +129,6 @@ function KeysDown(){
         if (!~index){
           var val = obs().concat()
           val.push(getKey(e))
-          console.log(getKey(e))
           obs.set(val)
           e.preventDefault()
         }
