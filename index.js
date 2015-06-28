@@ -22,7 +22,7 @@ var setMappedValue = require('./lib/set-mapped-value.js')
 
 var DittyGridStream = require('ditty-grid-stream')
 var InputStack = require('./input-stack.js')
-var getKeyIdentifier = require('./lib/get-key-identifier')
+var toIdentifier = require('./lib/to-identifier')
 
 var mapping = require('./mapping')
 
@@ -201,7 +201,7 @@ function KeyboardGrid(obs, mapping){
 }
 
 function getGridMapping(keys){
-  var result = keys.split('').map(getKeyIdentifier)
+  var result = keys.split('').map(toIdentifier)
   return ArrayGrid(result, [3, 10])
 }
 
