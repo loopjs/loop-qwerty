@@ -26,5 +26,14 @@ var qwertz = {
 
 module.exports = {
   default: qwerty,
-  "com.apple.keylayout.German": qwertz
+
+  // Mac:
+  "German": qwertz,
+
+  // Linux:
+  'de': qwertz,      // German
+  'de(mac)': qwertz, // German (mac)
+
+  // Windows:
+  '0407': qwertz     // German (standard)
 }
