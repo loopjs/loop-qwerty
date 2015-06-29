@@ -1,6 +1,5 @@
 var watch = require('observ/watch')
 var Observ = require('observ')
-var getIdentifier = require('./lib/get-identifier')
 
 module.exports = InputStack
 
@@ -125,11 +124,11 @@ function KeysDown(){
   function handleEvent(e){
     var el = document.activeElement
     if (!el || (!shouldIgnore(el) && el.contentEditable !== 'true')){
-      var index = obs().indexOf(getIdentifier(e))
+      var index = obs().indexOf(e.keyCode)
       if (e.type === 'keydown'){
         if (!~index){
           var val = obs().concat()
-          val.push(getIdentifier(e))
+          val.push(e.keyCode)
           obs.set(val)
           e.preventDefault()
         }
