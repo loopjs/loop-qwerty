@@ -24,7 +24,7 @@ var DittyGridStream = require('ditty-grid-stream')
 var InputStack = require('./input-stack.js')
 var convertKeyCode = require('keycode')
 
-var repeatStates = [2, 1, 2/3, 1/2, 1/3, 1/4, 1/6, 1/8]
+var repeatStates = [2, 1, 2/3, 1/2, 1/3, 1/4, 1/6, 1/8, 3/4, 0]
 
 module.exports = LoopQwerty
 
