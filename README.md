@@ -11,7 +11,8 @@ Qwerty keyboard bindings for [loop-grid](https://github.com/mmckegg/loop-grid).
 
 - **store**: space
 - **hold beat**: shift
-- **repeat**: 1-8 (none, 1, 2/3, 1/2, 1/3, 1/4, 1/6, 1/8)
+- **repeat**: 1-9 (none, 1, 2/3, 1/2, 1/3, 1/4, 1/6, 1/8, 3/4)
+- **suppress mode**: 0
 - **clear/flatten**: backspace
 - **undo**: -
 - **redo**: =
