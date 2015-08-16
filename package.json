@@ -20,7 +20,7 @@
     "array-grid": "^1.4.0",
     "ditty-grid-stream": "^1.1.1",
     "keycode": "^1.0.0",
-    "loop-grid": "~4.2.0",
+    "loop-grid": "~4.3.0",
     "loop-grid-holder": "~1.1.0",
     "loop-grid-repeater": "~1.1.0",
     "loop-grid-suppressor": "~1.1.0",
